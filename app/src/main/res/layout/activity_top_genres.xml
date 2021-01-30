@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TopGenresActivity">
+    tools:context=".ui.TopGenresActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_genre"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_marginStart="16dp"
@@ -17,13 +18,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:spanCount="3"
+        tools:itemCount="12"
         tools:listitem="@layout/genre_item" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/trebuc"
         android:text="Music"
@@ -47,10 +50,21 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:text="TextView"
+        android:layout_marginTop="90dp"
+        android:fontFamily="@font/trebuc"
+        android:text="Choose a genre to start with"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-2dp"
+        android:src="@drawable/ic_down"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
