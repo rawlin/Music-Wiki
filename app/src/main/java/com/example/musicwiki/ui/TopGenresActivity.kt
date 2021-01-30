@@ -6,8 +6,10 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.musicwiki.R
 import com.example.musicwiki.adapters.GenreAdapter
 import com.example.musicwiki.databinding.ActivityTopGenresBinding
+import com.example.musicwiki.models.topgenres.Tag
 import com.example.musicwiki.repository.MusicWikiRepository
 import com.example.musicwiki.util.Resource
 
@@ -16,6 +18,7 @@ class TopGenresActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTopGenresBinding
     private lateinit var genreAdapter: GenreAdapter
     private lateinit var viewModel: TopGenresViewModel
+    private lateinit var list: List<Tag>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTopGenresBinding.inflate(layoutInflater)
@@ -30,8 +33,9 @@ class TopGenresActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
-                    val list = response.data?.toptags?.tag
-                    genreAdapter.differ.submitList(list)
+                    list = response.data?.toptags?.tag!!
+                    val listToSubmit = list.subList(0,12)
+                    genreAdapter.differ.submitList(listToSubmit)
                 }
                 is Resource.Loading -> {
                     showProgressBar()
@@ -42,7 +46,32 @@ class TopGenresActivity : AppCompatActivity() {
             }
         })
 
+        binding.imageView.apply {
+            setTag(1)
+            setOnClickListener {
+                if (getTag() == 1) {
+                    setImageResource(R.drawable.ic_up)
+                    setTag(2)
+                    sendList(false)
+                }else {
+                    setImageResource(R.drawable.ic_down)
+                    setTag(1)
+                    sendList(true)
+                }
 
+            }
+        }
+
+
+    }
+
+    private fun sendList(flag: Boolean) {
+        if (flag == false) {
+            val listToSubmit = list.subList(0,12)
+            genreAdapter.differ.submitList(listToSubmit)
+        } else {
+            genreAdapter.differ.submitList(list)
+        }
     }
 
     private fun showProgressBar() {
@@ -56,6 +85,7 @@ class TopGenresActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         genreAdapter = GenreAdapter()
         binding.rvGenre.apply {
+            isNestedScrollingEnabled = false
             adapter = genreAdapter
             layoutManager = GridLayoutManager(context, 3)
         }
