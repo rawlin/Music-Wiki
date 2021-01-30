@@ -42,7 +42,12 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
         holder.itemView.apply {
             tv_item_genre_name.text = genreNames.name
+            setOnClickListener {
+                onItemClickListener?.let { it(genreNames) }
+            }
         }
+
+
     }
 
     override fun getItemCount(): Int =
@@ -51,7 +56,7 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
     private var onItemClickListener: ((Tag) -> Unit)? = null
 
 
-    fun setOnITemClickListener(listener: (Tag) -> Unit) {
+    fun setOnItemClickListener(listener: (Tag) -> Unit) {
         onItemClickListener = listener
     }
 }

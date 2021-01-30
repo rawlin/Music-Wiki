@@ -1,8 +1,11 @@
 package com.example.musicwiki.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,8 +27,10 @@ class TopGenresActivity : AppCompatActivity() {
         binding = ActivityTopGenresBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val musicWikiRepository = MusicWikiRepository()
-        viewModel = ViewModelProvider(this,
-            TopGenresViewModelProviderFactory(musicWikiRepository))
+        viewModel = ViewModelProvider(
+            this,
+            TopGenresViewModelProviderFactory(musicWikiRepository)
+        )
             .get(TopGenresViewModel::class.java)
         setupRecyclerView()
 
@@ -34,7 +39,7 @@ class TopGenresActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     hideProgressBar()
                     list = response.data?.toptags?.tag!!
-                    val listToSubmit = list.subList(0,12)
+                    val listToSubmit = list.subList(0, 12)
                     genreAdapter.differ.submitList(listToSubmit)
                 }
                 is Resource.Loading -> {
@@ -53,13 +58,20 @@ class TopGenresActivity : AppCompatActivity() {
                     setImageResource(R.drawable.ic_up)
                     setTag(2)
                     sendList(false)
-                }else {
+                } else {
                     setImageResource(R.drawable.ic_down)
                     setTag(1)
                     sendList(true)
                 }
-
             }
+        }
+
+        genreAdapter.setOnItemClickListener {
+            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+//            val genreName = it.name
+//            val intent = Intent(this, DetailsAndList::class.java)
+//            intent.putExtra("Genre",genreName)
+//            startActivity(intent)
         }
 
 
@@ -67,7 +79,7 @@ class TopGenresActivity : AppCompatActivity() {
 
     private fun sendList(flag: Boolean) {
         if (flag == false) {
-            val listToSubmit = list.subList(0,12)
+            val listToSubmit = list.subList(0, 12)
             genreAdapter.differ.submitList(listToSubmit)
         } else {
             genreAdapter.differ.submitList(list)
