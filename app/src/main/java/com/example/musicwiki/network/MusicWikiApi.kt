@@ -25,7 +25,7 @@ interface MusicWikiApi {
     @GET("2.0")
     suspend fun getGenreInfo(
         @Query("method")
-        method: String = "getinfo",
+        method: String = "tag.getinfo",
         @Query("tag")
         tag: String,
         @Query("api_key")
