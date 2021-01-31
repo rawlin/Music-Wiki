@@ -81,6 +81,7 @@ class AlbumDetailsActivity : AppCompatActivity() {
         val artistName = result.artist
         val desc = result.wiki.summary ?: "No Description"
         val imageUrl = result.image[4].text
+        val descWithoutTags = removeTags(desc)
 
         genreAdapter.differ.submitList(result.tags.tag)
 
@@ -96,8 +97,20 @@ class AlbumDetailsActivity : AppCompatActivity() {
         binding.apply {
             tvAlbumDetailName.text = albumName
             tvAlbumDetailArtist.text = artistName
-            tvAlbumDetailDesc.text = desc
+            tvAlbumDetailDesc.text = descWithoutTags
         }
+    }
+
+    private fun removeTags(s: String) : String{
+        val length = s.length
+        var a:Int = 0
+        for (i in s.indices) {
+            if (s[i] == '<') {
+                a = i
+                break
+            }
+        }
+        return s.substring(0, a)
     }
 
     private fun hideProgressBar() {

@@ -67,7 +67,6 @@ class TopGenresActivity : AppCompatActivity() {
         }
 
         genreAdapter.setOnItemClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
             val genreName = it.name
             val intent = Intent(this, DetailsAndListsActivity::class.java)
             intent.putExtra("Genre",genreName)

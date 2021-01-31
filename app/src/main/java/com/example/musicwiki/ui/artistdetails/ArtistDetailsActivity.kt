@@ -1,5 +1,6 @@
 package com.example.musicwiki.ui.artistdetails
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,8 @@ import com.example.musicwiki.databinding.ActivityArtistDetailsBinding
 import com.example.musicwiki.models.artistdetails.Artist
 import com.example.musicwiki.models.artistdetails.Tag
 import com.example.musicwiki.repository.MusicWikiRepository
+import com.example.musicwiki.ui.albumdetails.AlbumDetailsActivity
+import com.example.musicwiki.ui.detailsandlists.DetailsAndListsActivity
 import com.example.musicwiki.util.Resource
 
 class ArtistDetailsActivity : AppCompatActivity() {
@@ -78,6 +81,21 @@ class ArtistDetailsActivity : AppCompatActivity() {
             }
         })
 
+        albumsAdapter.setOnItemClickListener {
+            val artistName = it.artist.name
+            val albumName = it.name
+            val intent = Intent(this, AlbumDetailsActivity::class.java)
+            intent.putExtra("artistName", artistName)
+            intent.putExtra("albumName", albumName)
+            startActivity(intent)
+        }
+
+        genreAdapter.setOnItemClickListener {
+            val genreName = it
+            val intent = Intent(this, DetailsAndListsActivity::class.java)
+            intent.putExtra("Genre", genreName)
+            startActivity(intent)
+        }
 
     }
 
@@ -89,13 +107,18 @@ class ArtistDetailsActivity : AppCompatActivity() {
         val playCount = data.stats.playcount.toLong()
         val followers = data.stats.listeners.toLong()
         val list = data.tags.tag
+        val descWithoutTags = removeTags(artistDesc)
+
+        val formattedPlayCount = formatNumberToSting(playCount)
+        val formattedFollowers = formatNumberToSting(followers)
 
         genreAdapter.differ.submitList(list)
 
         binding.apply {
             tvArtistName.text = artistName
-            tvArtistDetailsDesc.text = artistDesc
-
+            tvArtistDetailsDesc.text = descWithoutTags
+            tvArtistDetailPlaycount.text = formattedPlayCount
+            tvArtistDetailFollowers.text = formattedFollowers
         }
 
         Glide.with(this@ArtistDetailsActivity.applicationContext)
@@ -107,6 +130,31 @@ class ArtistDetailsActivity : AppCompatActivity() {
             )
             .into(binding.imageView3)
 
+    }
+
+    private fun formatNumberToSting(number: Long): String {
+        if (number < 1000) {
+            return number.toString()
+        } else if (number in 1001..999999) {
+            val num = (number / 1000L).toInt()
+            val result = num.toString() + "K"
+            return result
+        } else {
+            val num = (number / 1_000_000).toInt().toString()
+            return num + "M"
+        }
+    }
+
+    private fun removeTags(s: String): String {
+        val length = s.length
+        var a: Int = 0
+        for (i in s.indices) {
+            if (s[i] == '<') {
+                a = i
+                break
+            }
+        }
+        return s.substring(0, a)
     }
 
     private fun hideProgressBar() {

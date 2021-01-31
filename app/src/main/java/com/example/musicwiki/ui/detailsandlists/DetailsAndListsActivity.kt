@@ -66,7 +66,8 @@ class DetailsAndListsActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     hideProgressBar()
                     val info = response.data
-                    binding.tvInfoDesc.text = info
+                    val text = removeTags(info!!)
+                    binding.tvInfoDesc.text = text
                 }
                 is Resource.Loading -> {
                     showProgressBar()
@@ -77,6 +78,17 @@ class DetailsAndListsActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun removeTags(s: String) : String{
+        val length = s.length
+        var a:Int = 0
+        for (i in s.indices) {
+            if (s[i] == '<') {
+                a = i
+            }
+        }
+        return s.substring(0, a)
     }
 
     private fun hideProgressBar() {
