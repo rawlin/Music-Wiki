@@ -47,6 +47,8 @@ class DetailsAndListsActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     binding.viewPager.currentItem = tab.position
+                    val fragmentItem = (binding.viewPager as FragmentPagerAdapter).getItem(binding.viewPager.currentItem)
+                    (fragmentItem as BaseFragmentInteraction).updateFragmentData(genre)
                 }
             }
 
@@ -83,5 +85,9 @@ class DetailsAndListsActivity : AppCompatActivity() {
 
     private fun showProgressBar() {
         binding.pbDetailsAndLists.visibility = View.VISIBLE
+    }
+
+    interface BaseFragmentInteraction {
+        fun updateFragmentData(data: String)
     }
 }

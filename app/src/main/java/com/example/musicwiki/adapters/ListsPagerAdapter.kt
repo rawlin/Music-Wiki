@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.musicwiki.AlbumListFragment
-import com.example.musicwiki.ArtistListFragment
-import com.example.musicwiki.TrackListFragment
+import com.example.musicwiki.ui.detailsandlists.albumlist.AlbumListFragment
+import com.example.musicwiki.ui.detailsandlists.artistlist.ArtistListFragment
+import com.example.musicwiki.ui.detailsandlists.tracklist.TrackListFragment
 
 class ListsPagerAdapter(
     private val context: Context,
