@@ -27,7 +27,7 @@ the albums, artists and tracks listed under the genre.
 ### AlbumDetails
 - Image of album and a horizonatlly scrolling `RecyclerView`
 - Clicking on the Genre items takes you to the GenreDetails Screen
-## ArtistDetails
+### ArtistDetails
 - Has 3 `RecyclerViews`(Top Albums, Top Tracks, Genres) which are all horizontally scrolling
 
 ## Libraries Used
