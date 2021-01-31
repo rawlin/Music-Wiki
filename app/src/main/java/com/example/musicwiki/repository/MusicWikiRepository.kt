@@ -18,4 +18,10 @@ class MusicWikiRepository {
 
     suspend fun getTopArtistsInfo(genre: String) =
         RetrofitInstance.api.getTopArtistsInfo(tag = genre)
+
+    suspend fun getAlbumDetails(artist: String, album: String) =
+        RetrofitInstance.api.getAlbumDetails(artist = artist, album = album)
+
+    suspend fun getArtistDetails(artist: String) =
+        RetrofitInstance.api.getArtistDetails(artist = artist)
 }
