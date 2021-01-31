@@ -71,7 +71,7 @@ class DetailsAndListsActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     hideProgressBar()
-                    Toast.makeText(this, response.message,Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
