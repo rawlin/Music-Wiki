@@ -1,5 +1,6 @@
 package com.example.musicwiki.ui.detailsandlists.artistlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.example.musicwiki.R
 import com.example.musicwiki.adapters.ArtistListAdapter
 import com.example.musicwiki.databinding.FragmentArtistListBinding
 import com.example.musicwiki.repository.MusicWikiRepository
+import com.example.musicwiki.ui.albumdetails.AlbumDetailsViewModel
+import com.example.musicwiki.ui.artistdetails.ArtistDetailsActivity
 import com.example.musicwiki.util.Resource
 
 class ArtistListFragment : Fragment(R.layout.fragment_artist_list) {
@@ -59,6 +62,14 @@ class ArtistListFragment : Fragment(R.layout.fragment_artist_list) {
                 }
             }
         })
+
+        artistAdapter.setOnItemClickListener {
+            Toast.makeText(this.context, "Artist ${it} clicked", Toast.LENGTH_SHORT).show()
+            val artistName = it
+            val intent = Intent(this.context, ArtistDetailsActivity::class.java)
+            intent.putExtra("artistName", artistName)
+            startActivity(intent)
+        }
     }
 
     private fun hideProgressBar() {

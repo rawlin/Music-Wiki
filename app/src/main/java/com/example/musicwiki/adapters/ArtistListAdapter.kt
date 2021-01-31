@@ -53,9 +53,19 @@ class ArtistListAdapter : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolde
                         .load(R.drawable.empty)
                 )
                 .into(iv_list_item)
+
+            setOnClickListener {
+                onItemClickListener?.let { it(artistDetails.name) }
+            }
         }
     }
 
     override fun getItemCount(): Int =
         differ.currentList.size
+
+    private var onItemClickListener: ((String) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (String) -> Unit) {
+        onItemClickListener = listener
+    }
 }

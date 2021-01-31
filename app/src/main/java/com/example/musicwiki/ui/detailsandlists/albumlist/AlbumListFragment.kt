@@ -1,5 +1,6 @@
 package com.example.musicwiki.ui.detailsandlists.albumlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.musicwiki.R
 import com.example.musicwiki.adapters.AlbumListAdapter
 import com.example.musicwiki.databinding.FragmentAlbumListBinding
 import com.example.musicwiki.repository.MusicWikiRepository
+import com.example.musicwiki.ui.albumdetails.AlbumDetailsActivity
 import com.example.musicwiki.ui.detailsandlists.DetailsAndListsActivity
 import com.example.musicwiki.util.Resource
 
@@ -43,7 +45,7 @@ class AlbumListFragment : Fragment(R.layout.fragment_album_list) {
             AlbumListViewModelProviderFactory(musicWikiRepository)
         )
             .get(AlbumListViewModel::class.java)
-        Log.d("AlbumListFragment","Initialized")
+        Log.d("AlbumListFragment", "Initialized")
         setupRecyclerView()
         viewModel.getAlbumDetails(genre)
 
@@ -64,6 +66,15 @@ class AlbumListFragment : Fragment(R.layout.fragment_album_list) {
                 }
             }
         })
+
+        albumAdapter.setOnItemClickListener {
+            val artistName = it.artist.name
+            val albumName = it.name
+            val intent = Intent(this.context, AlbumDetailsActivity::class.java)
+            intent.putExtra("artistName", artistName)
+            intent.putExtra("albumName", albumName)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
