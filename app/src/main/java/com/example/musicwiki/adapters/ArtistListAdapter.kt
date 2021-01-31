@@ -8,27 +8,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicwiki.R
-import com.example.musicwiki.models.topalbums.Album
+import com.example.musicwiki.models.topartists.Artist
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class AlbumListAdapter : RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>() {
+class ArtistListAdapter : RecyclerView.Adapter<ArtistListAdapter.ArtistViewHolder>() {
 
-    inner class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val differCallback = object : DiffUtil.ItemCallback<Album>() {
-        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Artist>() {
+        override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
+        override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
-        return AlbumViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
+        return ArtistViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(
                     R.layout.list_item,
@@ -38,13 +38,13 @@ class AlbumListAdapter : RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
         )
     }
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        val albumDetails = differ.currentList[position]
+    override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
+        val artistDetails = differ.currentList[position]
 
         holder.itemView.apply {
-            tv_list_item_title.text = albumDetails.name
-            tv_list_item_subtitle.text = albumDetails.artist.name
-            val imageUrl = albumDetails.image[1].text
+            tv_list_item_title.text = artistDetails.name
+
+            val imageUrl = artistDetails.image[1].text
             Glide.with(context)
                 .load(imageUrl)
                 .error(R.drawable.empty)
@@ -53,19 +53,9 @@ class AlbumListAdapter : RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>(
                         .load(R.drawable.empty)
                 )
                 .into(iv_list_item)
-
-            setOnClickListener {
-                onItemClickListener?.let { it(albumDetails) }
-            }
         }
     }
 
     override fun getItemCount(): Int =
         differ.currentList.size
-
-    private var onItemClickListener: ((Album) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Album) -> Unit) {
-        onItemClickListener = listener
-    }
 }

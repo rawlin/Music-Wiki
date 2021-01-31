@@ -30,14 +30,16 @@ class ListsPagerAdapter(
             1 -> {
                 val bundle = Bundle()
                 bundle.putString("Genre",genre)
-                ArtistListFragment().arguments = bundle
-                return ArtistListFragment()
+                val fragment = ArtistListFragment()
+                fragment.arguments = bundle
+                return fragment
             }
             2 -> {
                 val bundle = Bundle()
                 bundle.putString("Genre",genre)
-                TrackListFragment().arguments = bundle
-                return TrackListFragment()
+                val fragment = TrackListFragment()
+                fragment.arguments = bundle
+                return fragment
             }
             else -> return AlbumListFragment()
         }
