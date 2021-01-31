@@ -2,6 +2,8 @@ package com.example.musicwiki.network
 
 import com.example.musicwiki.models.albumdetails.AlbumDetailsResponse
 import com.example.musicwiki.models.artistdetails.ArtistDetailsResponse
+import com.example.musicwiki.models.artisttopalbums.ArtistTopAlbumsResponse
+import com.example.musicwiki.models.artisttoptracks.ArtistTopTracksResponse
 import com.example.musicwiki.models.topalbums.TopAlbumsResponse
 import com.example.musicwiki.models.topartists.TopArtistsResponse
 import com.example.musicwiki.models.topgenreinfo.GenreInfoResponse
@@ -97,6 +99,31 @@ interface MusicWikiApi {
         @Query("format")
         format: String = "json"
     ): Response<ArtistDetailsResponse>
+
+    @GET("2.0")
+    suspend fun getAlbumsOfArtist(
+        @Query("method")
+        method: String = "artist.gettopalbums",
+        @Query("api_key")
+        apiKey: String = API_KEY,
+        @Query("artist")
+        artist: String,
+        @Query("format")
+        format: String = "json"
+    ): Response<ArtistTopAlbumsResponse>
+
+    @GET("2.0")
+    suspend fun getTracksOfArtist(
+        @Query("method")
+        method: String = "artist.gettoptracks",
+        @Query("api_key")
+        apiKey: String = API_KEY,
+        @Query("artist")
+        artist: String,
+        @Query("format")
+        format: String = "json"
+    ): Response<ArtistTopTracksResponse>
+
 
 
 }

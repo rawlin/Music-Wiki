@@ -24,4 +24,10 @@ class MusicWikiRepository {
 
     suspend fun getArtistDetails(artist: String) =
         RetrofitInstance.api.getArtistDetails(artist = artist)
+
+    suspend fun getAlbumsOfArtist(artist: String) =
+        RetrofitInstance.api.getAlbumsOfArtist(artist = artist)
+
+    suspend fun getTracksOfArtist(artist: String) =
+        RetrofitInstance.api.getTracksOfArtist(artist = artist)
 }

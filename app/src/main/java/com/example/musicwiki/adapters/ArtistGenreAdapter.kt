@@ -3,14 +3,12 @@ package com.example.musicwiki.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicwiki.R
 import com.example.musicwiki.models.artistdetails.Tag
 import kotlinx.android.synthetic.main.genre_item.view.*
-import kotlinx.android.synthetic.main.square_item.view.*
 
 class ArtistGenreAdapter : RecyclerView.Adapter<ArtistGenreAdapter.GenreViewHolder>() {
 
