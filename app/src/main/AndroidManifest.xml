@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicWiki"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.detailsandlists.DetailsAndListsActivity"></activity>
+        <activity android:name=".ui.artistdetails.ArtistDetailsActivity"></activity>
+        <activity android:name=".ui.albumdetails.AlbumDetailsActivity" />
+        <activity android:name=".ui.detailsandlists.DetailsAndListsActivity" />
         <activity
             android:name=".DetailsAndList"
             android:label="@string/title_activity_details_and_list"
