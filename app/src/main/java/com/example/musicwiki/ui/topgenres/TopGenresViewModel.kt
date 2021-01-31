@@ -1,4 +1,4 @@
-package com.example.musicwiki.ui
+package com.example.musicwiki.ui.topgenres
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

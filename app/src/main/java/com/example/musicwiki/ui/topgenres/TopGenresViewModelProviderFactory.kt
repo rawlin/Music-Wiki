@@ -1,4 +1,4 @@
-package com.example.musicwiki.ui
+package com.example.musicwiki.ui.topgenres
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicWiki"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.detailsandlists.DetailsAndListsActivity"></activity>
         <activity
             android:name=".DetailsAndList"
             android:label="@string/title_activity_details_and_list"
-            android:theme="@style/Theme.MusicWiki.NoActionBar"></activity>
-        <activity android:name=".ui.TopGenresActivity">
+            android:theme="@style/Theme.MusicWiki.NoActionBar" />
+        <activity android:name=".ui.topgenres.TopGenresActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

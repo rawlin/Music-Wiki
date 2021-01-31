@@ -1,9 +1,8 @@
-package com.example.musicwiki.ui
+package com.example.musicwiki.ui.topgenres
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -14,6 +13,7 @@ import com.example.musicwiki.adapters.GenreAdapter
 import com.example.musicwiki.databinding.ActivityTopGenresBinding
 import com.example.musicwiki.models.topgenres.Tag
 import com.example.musicwiki.repository.MusicWikiRepository
+import com.example.musicwiki.ui.detailsandlists.DetailsAndListsActivity
 import com.example.musicwiki.util.Resource
 
 class TopGenresActivity : AppCompatActivity() {
@@ -68,17 +68,17 @@ class TopGenresActivity : AppCompatActivity() {
 
         genreAdapter.setOnItemClickListener {
             Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
-//            val genreName = it.name
-//            val intent = Intent(this, DetailsAndList::class.java)
-//            intent.putExtra("Genre",genreName)
-//            startActivity(intent)
+            val genreName = it.name
+            val intent = Intent(this, DetailsAndListsActivity::class.java)
+            intent.putExtra("Genre",genreName)
+            startActivity(intent)
         }
 
 
     }
 
     private fun sendList(flag: Boolean) {
-        if (flag == false) {
+        if (!flag) {
             val listToSubmit = list.subList(0, 12)
             genreAdapter.differ.submitList(listToSubmit)
         } else {
