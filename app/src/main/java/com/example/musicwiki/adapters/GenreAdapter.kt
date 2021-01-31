@@ -46,8 +46,6 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
                 onItemClickListener?.let { it(genreNames) }
             }
         }
-
-
     }
 
     override fun getItemCount(): Int =

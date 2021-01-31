@@ -25,6 +25,7 @@ class DetailsAndListsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsAndListsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val genre = intent.getStringExtra("Genre")
         val musicWikiRepository = MusicWikiRepository()
         viewModel = ViewModelProvider(
@@ -32,13 +33,14 @@ class DetailsAndListsActivity : AppCompatActivity() {
             DetailsAndListsViewModelProviderFactory(musicWikiRepository)
         )
             .get(DetailsAndListsViewModel::class.java)
+
         val title = genre!!.toLowerCase(Locale.getDefault()).capitalize()
         binding.tvInfoTitle.text = title
 
         viewModel.getGenreInfo(genre!!)
 
         listPagerAdapter =
-            ListsPagerAdapter(this, supportFragmentManager, binding.tabLayout.tabCount)
+            ListsPagerAdapter(this, supportFragmentManager, binding.tabLayout.tabCount, genre)
         binding.viewPager.adapter = listPagerAdapter
 
         binding.viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout))
@@ -47,8 +49,6 @@ class DetailsAndListsActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     binding.viewPager.currentItem = tab.position
-                    val fragmentItem = (binding.viewPager as FragmentPagerAdapter).getItem(binding.viewPager.currentItem)
-                    (fragmentItem as BaseFragmentInteraction).updateFragmentData(genre)
                 }
             }
 
@@ -87,7 +87,4 @@ class DetailsAndListsActivity : AppCompatActivity() {
         binding.pbDetailsAndLists.visibility = View.VISIBLE
     }
 
-    interface BaseFragmentInteraction {
-        fun updateFragmentData(data: String)
-    }
 }
